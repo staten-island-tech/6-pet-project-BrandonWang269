@@ -139,16 +139,73 @@ print(admin.manage_system())
 my_teacher = Teacher("Mr. Brown", "brown@example.com", "Science")
 print(my_teacher.display_info()) """
 
-class Pet:
-    def __init__(self, name, happiness):
-        self.name = name
-        self.__happiness = happiness
-    def play(self, increase):
-        self.__happiness += increase
-    def show_status(self):
-        print("Bob is playing fetch!")
-        print(f"{self.name} has {self.__happiness} happiness")
+print("Welcome to Raise a Pet Simulator. In this game, you must raise your pet until you reach max happiness, affection, max satiation, and max rest. In order to do this, you must take action each day. This is a speedrun so it is a a test to see how fast you can finish. Good luck and have fun.")
 
-Bob = Pet("Bob", 0)
-Bob.play(15)
-Bob.show_status()
+
+class Pet:
+        def __init__(self, name, happiness, satiation, affection, rest):
+            self.name = name
+            self.__satiation = satiation
+            self.__affection = affection
+            self.__rest = rest
+            self.__happiness = happiness
+        def play(self, increase):
+            self.__happiness += increase
+            print(f"{self.name} played fetch! Happiness: {self.__happiness}")
+        def sleep(self, add):
+            self.__rest += add
+            print(f"{self.name} slept! Rest: {self.__rest}")
+        def cuddle(self, plus):
+            self.__affection += plus
+            print(f"{self.name} loved the cuddles! Affection: {self.__affection}")
+        def eat(self, more):
+            self.__satiation += more
+            print(f"{self.name} ate! Satiation: {self.__satiation}")
+        def show_status(self):
+            print("Bob is playing fetch!")
+            print(f"{self.name}'s Status is")
+            print(f"Happiness: {self.__happiness}")
+            print(f"Satiation: {self.__satiation}")
+            print(f"Affection: {self.__affection}")
+            print(f"Rest: {self.__rest}")
+
+Bob = Pet("Bob", 25, 25, 25, 25)
+day = 0
+while True:
+    Bob.show_status()
+    print(f"Day:", day)
+    choice = input("What would you like to do? Play, sleep, eat, cuddle, or quit? ")
+    if choice == "play":
+        Bob.play(15)
+        Bob.sleep(-3)
+        Bob.eat(-8)
+        Bob.cuddle(2)
+        day += 1
+        print(f"Day:", day)
+    elif choice == "sleep":
+        Bob.sleep(30)
+        Bob.play(-1)
+        Bob.eat(-3)
+        Bob.cuddle(0)
+        day += 1
+        print(f"Day:", day)
+    elif choice == "eat":
+        Bob.play(-1)
+        Bob.sleep(-2)
+        Bob.eat(45)
+        Bob.cuddle(1)
+        day += 1
+        print(f"Day:", day)
+    elif choice == "cuddle":
+        Bob.cuddle(10)
+        Bob.play(1)
+        Bob.sleep(-3)
+        Bob.eat(-4)
+        day += 1
+        print(f"Day:", day)
+    elif choice == "quit":
+        print("You took a total of", day, "days")
+        print("Goodbye!")
+        break
+    else:
+        print("Action not available")
