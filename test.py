@@ -151,16 +151,12 @@ class Pet:
             self.__happiness = happiness
         def play(self, increase):
             self.__happiness += increase
-            print(f"{self.name} played fetch! Happiness: {self.__happiness}")
         def sleep(self, add):
             self.__rest += add
-            print(f"{self.name} slept! Rest: {self.__rest}")
         def cuddle(self, plus):
             self.__affection += plus
-            print(f"{self.name} loved the cuddles! Affection: {self.__affection}")
         def eat(self, more):
             self.__satiation += more
-            print(f"{self.name} ate! Satiation: {self.__satiation}")
         def show_status(self):
             print("Bob is playing fetch!")
             print(f"{self.name}'s Status is")
@@ -168,7 +164,21 @@ class Pet:
             print(f"Satiation: {self.__satiation}")
             print(f"Affection: {self.__affection}")
             print(f"Rest: {self.__rest}")
-
+        def check_win(self):
+            return (self.__happiness >= 100 and 
+                    self.__satiation >= 100 and 
+                    self.__affection >= 100 and 
+                    self.__rest >= 100)
+        def check_win(self):
+            return (self.__happiness >= 100 and 
+                    self.__satiation >= 100 and 
+                    self.__affection >= 100 and 
+                    self.__rest >= 100)
+        def check_lose(self):
+            return (self.__happiness <= 0 or 
+                    self.__satiation <= 0 or 
+                    self.__affection <= 0 or 
+                    self.__rest <= 0)
 Bob = Pet("Bob", 25, 25, 25, 25)
 day = 0
 while True:
@@ -176,6 +186,7 @@ while True:
     print(f"Day:", day)
     choice = input("What would you like to do? Play, sleep, eat, cuddle, or quit? ")
     if choice == "play":
+        print(f"{Bob.name} played fetch!")
         Bob.play(15)
         Bob.sleep(-3)
         Bob.eat(-8)
@@ -183,6 +194,7 @@ while True:
         day += 1
         print(f"Day:", day)
     elif choice == "sleep":
+        print(f"{Bob.name} slept!")
         Bob.sleep(30)
         Bob.play(-1)
         Bob.eat(-3)
@@ -190,6 +202,7 @@ while True:
         day += 1
         print(f"Day:", day)
     elif choice == "eat":
+        print(f"{Bob.name} ate!")
         Bob.play(-1)
         Bob.sleep(-2)
         Bob.eat(45)
@@ -197,6 +210,7 @@ while True:
         day += 1
         print(f"Day:", day)
     elif choice == "cuddle":
+        print(f"{Bob.name} loved the cuddles!")
         Bob.cuddle(10)
         Bob.play(1)
         Bob.sleep(-3)
@@ -208,4 +222,18 @@ while True:
         print("Goodbye!")
         break
     else:
-        print("Action not available")
+        print("Action not available. Day wasted.")
+        day +=1
+        Bob.sleep(-5)
+        Bob.eat(-5)
+
+    if Bob.check_win():
+        Bob.show_status
+        print(f"Congratulations! You raised {Bob.name} in {day} days!")
+        break
+
+    if Bob.check_lose():
+        Bob.show_status
+        print(f"Congratulations! You somehow managed to kill {Bob.name} in {day} days in the easiest game! Amazing!")
+        print("Game Over!")
+        break
