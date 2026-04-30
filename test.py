@@ -139,8 +139,7 @@ print(admin.manage_system())
 my_teacher = Teacher("Mr. Brown", "brown@example.com", "Science")
 print(my_teacher.display_info()) """
 
-print("Welcome to Raise a Pet Simulator. In this game, you must raise your pet until you reach max happiness, affection, max satiation, and max rest. In order to do this, you must take action each day. This is a speedrun so it is a a test to see how fast you can finish. Good luck and have fun.")
-
+print("Welcome to Raise a Pet Simulator. In this game, you must raise your pet until you reach max happiness, affection, max satiation, and max rest. In order to do this, you must take action each day. This is a speedrun so it is a test to see how fast you can finish. Good luck and have fun.")
 
 class Pet:
         def __init__(self, name, happiness, satiation, affection, rest):
@@ -164,17 +163,12 @@ class Pet:
             print(f"Satiation: {self.__satiation}")
             print(f"Affection: {self.__affection}")
             print(f"Rest: {self.__rest}")
-        def check_win(self):
+        def win(self):
             return (self.__happiness >= 100 and 
                     self.__satiation >= 100 and 
                     self.__affection >= 100 and 
                     self.__rest >= 100)
-        def check_win(self):
-            return (self.__happiness >= 100 and 
-                    self.__satiation >= 100 and 
-                    self.__affection >= 100 and 
-                    self.__rest >= 100)
-        def check_lose(self):
+        def lose(self):
             return (self.__happiness <= 0 or 
                     self.__satiation <= 0 or 
                     self.__affection <= 0 or 
@@ -212,13 +206,13 @@ while True:
     elif choice == "cuddle":
         print(f"{Bob.name} loved the cuddles!")
         Bob.cuddle(10)
-        Bob.play(1)
+        Bob.play(2)
         Bob.sleep(-3)
         Bob.eat(-4)
         day += 1
         print(f"Day:", day)
     elif choice == "quit":
-        print("You took a total of", day, "days")
+        print("You played for", day, "days")
         print("Goodbye!")
         break
     else:
@@ -226,13 +220,11 @@ while True:
         day +=1
         Bob.sleep(-5)
         Bob.eat(-5)
-
-    if Bob.check_win():
+    if Bob.win():
         Bob.show_status
         print(f"Congratulations! You raised {Bob.name} in {day} days!")
         break
-
-    if Bob.check_lose():
+    if Bob.lose():
         Bob.show_status
         print(f"Congratulations! You somehow managed to kill {Bob.name} in {day} days in the easiest game! Amazing!")
         print("Game Over!")
